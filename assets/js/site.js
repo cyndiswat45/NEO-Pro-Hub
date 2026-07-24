@@ -1,5 +1,6 @@
 const hubSearch=[
  {title:'Ripcho Studio Dashboard',url:'customers/ripcho/',tags:'ripcho production workflows printing packages'},
+ {title:'Start a Ripcho Job',url:'customers/ripcho/getting-started.html',tags:'start job work order progress sheet job type preparation preflight'},
  {title:'UG / CP Workflow',url:'customers/ripcho/ug-workflow.html',tags:'underclass ug cp tnj import retouch proof packing'},
  {title:'Retakes Workflow',url:'customers/ripcho/retakes.html',tags:'retake merge original job background swap'},
  {title:'Spring Portrait Workflow',url:'customers/ripcho/spring-portraits.html',tags:'spring portraits proof orders'},
@@ -18,4 +19,10 @@ document.addEventListener('DOMContentLoaded',()=>{
  document.addEventListener('keydown',e=>{if(e.key==='/'&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();open()}if(e.key==='Escape')close()});
  if(input) input.addEventListener('input',()=>{const q=input.value.trim().toLowerCase();const hits=q?hubSearch.filter(x=>(x.title+' '+x.tags).toLowerCase().includes(q)):hubSearch.slice(0,5);results.innerHTML=hits.length?hits.map(x=>`<a class="search-result" href="${location.pathname.includes('/customers/ripcho/')?'../../':''}${x.url}"><strong>${x.title}</strong><span>${x.tags}</span></a>`).join(''):'<p>No matching documentation yet.</p>'});
  const toggle=document.querySelector('.menu-toggle'),nav=document.querySelector('.top-nav');if(toggle)toggle.addEventListener('click',()=>nav.classList.toggle('open'));
+ const ripchoSidebar=document.querySelector('.page-sidebar');
+ if(ripchoSidebar&&ripchoSidebar.querySelector('h2')?.textContent.trim()==='RIPCHO STUDIO'&&!ripchoSidebar.querySelector('[href="getting-started.html"]')){
+  const start=document.createElement('a');start.href='getting-started.html';start.textContent='Start a Job';
+  const dashboard=[...ripchoSidebar.querySelectorAll('a')].find(link=>link.getAttribute('href')==='./');
+  dashboard?.insertAdjacentElement('afterend',start);
+ }
 });
